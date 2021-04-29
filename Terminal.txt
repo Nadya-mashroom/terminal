@@ -1,0 +1,130 @@
+## cd /Users/nadezhda/Folder_1 ##
+Last login: Thu Apr 29 09:40:21 on ttys001
+nadezhda@Air-Nadya ~ % clear
+
+nadezhda@Air-Nadya ~ % echo "посмотреть где я" 
+посмотреть где я
+nadezhda@Air-Nadya ~ % pwd
+/Users/nadezhda
+nadezhda@Air-Nadya ~ % echo "создать папку"
+создать папку
+nadezhda@Air-Nadya ~ % mkdir Folder_00
+nadezhda@Air-Nadya ~ % echo "зайти в папку"
+зайти в папку
+nadezhda@Air-Nadya ~ % cd Folder_00
+nadezhda@Air-Nadya Folder_00 % echo "создать три папки"
+создать три папки
+nadezhda@Air-Nadya Folder_00 % mkdir Test_0 Test_01 Test_11
+nadezhda@Air-Nadya Folder_00 % ls           
+Test_0	Test_01	Test_11
+nadezhda@Air-Nadya Folder_00 % echo "зайти в любую папку"
+зайти в любую папку
+nadezhda@Air-Nadya Folder_00 % cd Test_0
+nadezhda@Air-Nadya Test_0 % ls -la
+total 0
+drwxr-xr-x  2 nadezhda  staff   64 Apr 29 09:58 .
+drwxr-xr-x  5 nadezhda  staff  160 Apr 29 09:58 ..
+nadezhda@Air-Nadya Test_0 % echo "создать 5 файлов(3 txt,2 json)"
+создать 5 файлов(3 txt,2 json)
+nadezhda@Air-Nadya Test_0 % cat >Nad_0.txt                       
+hello,world
+my name is Nady
+bye%                                                                            nadezhda@Air-Nadya Test_0 % touch Nad_1.txt Nad_2.txt
+nadezhda@Air-Nadya Test_0 % touch Work_1.json Work_2.json
+nadezhda@Air-Nadya Test_0 % echo "создать 3 папки"
+создать 3 папки
+nadezhda@Air-Nadya Test_0 % mkdir My_Folder My_Folder_1 My_Folder_2
+nadezhda@Air-Nadya Test_0 % echo "вывести список содержимого"
+вывести список содержимого
+nadezhda@Air-Nadya Test_0 % ls
+My_Folder	My_Folder_2	Nad_1.txt	Work_1.json
+My_Folder_1	Nad_0.txt	Nad_2.txt	Work_2.json
+nadezhda@Air-Nadya Test_0 % echo "Открыть любой txt файл - написать что-то - выйти" 
+Открыть любой txt файл - написать что-то - выйти
+nadezhda@Air-Nadya Test_0 % vim Nad_0.txt
+nadezhda@Air-Nadya Test_0 % vim Nad_1.txt
+nadezhda@Air-Nadya Test_0 % echo "выйти из папки на уровень выше"
+выйти из папки на уровень выше
+nadezhda@Air-Nadya Test_0 % cd ..
+nadezhda@Air-Nadya Folder_00 % 
+nadezhda@Air-Nadya Folder_00 % echo "переместить 2 созданных файла в другую папку"
+переместить 2 созданных файла в другую папку
+nadezhda@Air-Nadya Folder_00 % mv Test_0/Nad_1.txt Test_01
+nadezhda@Air-Nadya Folder_00 % ls
+Test_0	Test_01	Test_11
+nadezhda@Air-Nadya Folder_00 % cd Test_01
+nadezhda@Air-Nadya Test_01 % ls
+Nad_1.txt
+nadezhda@Air-Nadya Test_01 % cd ..  
+nadezhda@Air-Nadya Folder_00 % mv Test_0/Nad_2.txt Test_01
+nadezhda@Air-Nadya Folder_00 % ls
+Test_0	Test_01	Test_11
+nadezhda@Air-Nadya Folder_00 % ls -la
+total 16
+drwxr-xr-x   6 nadezhda  staff   192 Apr 29 11:15 .
+drwxr-xr-x+ 24 nadezhda  staff   768 Apr 29 11:11 ..
+-rw-r--r--@  1 nadezhda  staff  6148 Apr 29 11:26 .DS_Store
+drwxr-xr-x   9 nadezhda  staff   288 Apr 29 12:02 Test_0
+drwxr-xr-x   4 nadezhda  staff   128 Apr 29 12:02 Test_01
+drwxr-xr-x   2 nadezhda  staff    64 Apr 29 09:58 Test_11
+nadezhda@Air-Nadya Folder_00 % cd Test_01
+nadezhda@Air-Nadya Test_01 % ls
+Nad_1.txt	Nad_2.txt
+nadezhda@Air-Nadya Test_01 % echo "копировать 2 файла в другую папку"
+копировать 2 файла в другую папку
+nadezhda@Air-Nadya Test_01 % cp Nad_2.txt ../Test_11
+nadezhda@Air-Nadya Test_01 % ls ../Test_11
+Nad_2.txt
+nadezhda@Air-Nadya Test_01 % cd ..
+nadezhda@Air-Nadya Folder_00 % cd Test_0
+nadezhda@Air-Nadya Test_0 % ls
+My_Folder	My_Folder_2	Work_1.json
+My_Folder_1	Nad_0.txt	Work_2.json
+nadezhda@Air-Nadya Test_0 % cp Work_2.json ../Test_11
+nadezhda@Air-Nadya Test_0 % ls
+My_Folder	My_Folder_2	Work_1.json
+My_Folder_1	Nad_0.txt	Work_2.json
+nadezhda@Air-Nadya Test_0 % cd ../Test_11
+nadezhda@Air-Nadya Test_11 % ls
+Nad_2.txt	Work_2.json
+nadezhda@Air-Nadya Test_11 % 
+nadezhda@Air-Nadya ~ % echo "найти файл по имени"
+найти файл по имени
+nadezhda@Air-Nadya ~ % find ~ -name "Nad_2*"
+/Users/nadezhda/Folder_00/Test_01/Nad_2.txt
+/Users/nadezhda/Folder_00/Test_11/Nad_2.txt
+/Users/nadezhda/.Trash/Nadya_777/Nad_2 
+nadezhda@Air-Nadya ~ % pwd
+/Users/nadezhda
+nadezhda@Air-Nadya ~ % cd Folder_00 
+nadezhda@Air-Nadya Folder_00 % test 
+nadezhda@Air-Nadya Folder_00 % cd test_0 
+nadezhda@Air-Nadya test_0 % ls
+My_Folder	My_Folder_2	Work_1.json
+My_Folder_1	Nad_0.txt	Work_2.json
+nadezhda@Air-Nadya test_0 % echo "просмотр содержимого в реальном времени"
+просмотр содержимого в реальном времени
+nadezhda@Air-Nadya test_0 % ls | grep My_Folder_2
+My_Folder_2
+nadezhda@Air-Nadya test_0 % ls
+My_Folder	My_Folder_2	Work_1.json
+My_Folder_1	Nad_0.txt	Work_2.json
+nadezhda@Air-Nadya Folder_00 % echo "вывести первые несколько строк из файла"
+вывести первые несколько строк из файла
+nadezhda@Air-Nadya Folder_00 % cd test_0
+nadezhda@Air-Nadya test_0 % cd Nad_0.txt 
+cd: not a directory: Nad_0.txt
+nadezhda@Air-Nadya test_0 % cat Nad_0.txt
+hello,world
+my name is Nady
+bye
+nadezhda@Air-Nadya test_0 % less +2 Nad_0.txt
+G: No such file or directory
+nadezhda@Air-Nadya test_0 % echo "вывести несколько последних строк файла"
+вывести несколько последних строк файла
+nadezhda@Air-Nadya test_0 % less G Nad_0.txt
+G: No such file or directory
+nadezhda@Air-Nadya test_0 % echo "вывести дату и время"
+вывести дату и время
+nadezhda@Air-Nadya test_0 % date
+Thu Apr 29 15:07:13 +07 2021 

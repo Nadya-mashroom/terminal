@@ -1,0 +1,378 @@
+{
+	"info": {
+		"_postman_id": "67ad214e-4732-424f-9839-0678a12b1829",
+		"name": "TEST",
+		"schema": "https://schema.getpostman.com/json/collection/v2.0.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "test: auth",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"var jsonData = JSON.parse(responseBody);",
+							"postman.setEnvironmentVariable(\"token\", jsonData.token);",
+							"postman.setEnvironmentVariable(\"Name\",\"Nadya\");",
+							"postman.setEnvironmentVariable(\"Age\",20);",
+							"postman.setEnvironmentVariable(\"weight\",10);",
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "formdata",
+					"formdata": [
+						{
+							"key": "login",
+							"value": "test",
+							"type": "text"
+						},
+						{
+							"key": "password",
+							"value": "test",
+							"type": "text"
+						}
+					]
+				},
+				"url": "{{url}}/login"
+			},
+			"response": []
+		},
+		{
+			"name": "test_2: user_info",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"var jsonData = pm.response.json();",
+							"postman.setEnvironmentVariable(\"u_salary_1_5_year\", jsonData.person.u_salary_1_5_year);",
+							"",
+							"pm.test(\"Status code is 200\", function () {",
+							"    pm.response.to.have.status(200);",
+							"});",
+							"",
+							"pm.test (\"Check JSON structure\", function () {",
+							"        pm.expect(jsonData).to.eql({",
+							"        \"person\": {",
+							"            \"u_age\": 20,",
+							"            \"u_name\": [",
+							"                null,",
+							"                100000,",
+							"                20",
+							"            ],",
+							"            \"u_salary_1_5_year\": 400000",
+							"        },",
+							"        \"qa_salary_after_12_months\": 290000.0,",
+							"        \"qa_salary_after_6_months\": 200000,",
+							"        \"start_qa_salary\": 100000",
+							"    })",
+							"});",
+							"",
+							"pm.test(\"eql _salary\", function () {",
+							"    pm.expect(jsonData.start_qa_salary).to.eql(jsonData.person.u_salary_1_5_year/4);",
+							"    pm.expect(jsonData.start_qa_salary).to.eql(jsonData.qa_salary_after_12_months/2.9);",
+							"    pm.expect(jsonData.start_qa_salary).to.eql((jsonData.qa_salary_after_6_months/2));",
+							"    console.log(jsonData.start_qa_salary);",
+							"    console.log(jsonData.person.u_salary_1_5_year/4);",
+							"    console.log(jsonData.qa_salary_after_12_months/2.9);",
+							"    console.log(jsonData.qa_salary_after_6_months/6);",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"auth": {
+					"type": "noauth"
+				},
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"auth_token\": \" {{token}}\",\n    \"name\": \" Nadya\",\n    \"age\": \"20\",\n    \"salary\": 100000 \n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": "{{url}}/user_info"
+			},
+			"response": []
+		},
+		{
+			"name": "test_3:new_data",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"var jsonData = pm.response.json();",
+							"",
+							"pm.test (\"Status code 200\", function () {",
+							"    pm.response.to.have.status(200);",
+							"});",
+							"",
+							"pm.test (\"check JSON stracture\", function () {",
+							"    pm.expect(jsonData).to.eql({",
+							"    \"age\": 20,",
+							"    \"name\": \"Nadya\",",
+							"    \"salary\": [",
+							"        100000,",
+							"        \"200000\",",
+							"        \"300000\"",
+							"    ]",
+							"    });",
+							"});",
+							"",
+							"pm.test (\"check multiplication\", function () {",
+							"    pm.expect(jsonData.salary[0]*2).to.eql(parseInt(jsonData.salary[1]));",
+							"    pm.expect(jsonData.salary[0]*3).to.eql(parseInt(jsonData.salary[2]));",
+							"});",
+							"",
+							"pm.test (\"Comparison\", function () {",
+							"    pm.expect(",
+							"        jsonData.salary[0]<jsonData.salary[2]",
+							"        &&",
+							"        jsonData.salary[1]<jsonData.salary[2]",
+							"    ).to.eql(true);",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "formdata",
+					"formdata": [
+						{
+							"key": "name",
+							"value": "Nadya",
+							"type": "text"
+						},
+						{
+							"key": "age",
+							"value": "20",
+							"type": "text"
+						},
+						{
+							"key": "salary",
+							"value": "100000",
+							"type": "text"
+						},
+						{
+							"key": "auth_token",
+							"value": "{{token}}",
+							"type": "text"
+						}
+					],
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": "{{url}}/new_data"
+			},
+			"response": []
+		},
+		{
+			"name": "test_pet_info",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test (\"Status code 200\", function () {",
+							"    pm.response.to.have.status(200);",
+							"});",
+							"",
+							"var sR = pm.response.json();",
+							"var dF = sR.daily_food;",
+							"var dS = sR.daily_sleep;",
+							"var w = pm.environment.get(\"weight\");",
+							"pm.test (\"check multiplication\", function(){",
+							"    pm.expect(dF).to.eql(w * 0.012);",
+							"    pm.expect(dS).to.eql(w * 2.5);",
+							"});",
+							"",
+							"pm.test (\"check JSON stracture\", function () {",
+							"    pm.expect(sR).to.eql({",
+							"     \"age\": 20,",
+							"    \"daily_food\": 0.12,",
+							"    \"daily_sleep\": 25.0,",
+							"    \"name\": \"Nadya\"",
+							"    });",
+							"});",
+							"",
+							"",
+							"",
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "formdata",
+					"formdata": [
+						{
+							"key": "age",
+							"value": "{{Age}}",
+							"type": "text"
+						},
+						{
+							"key": "name",
+							"value": "{{Name}}",
+							"type": "text"
+						},
+						{
+							"key": "weight",
+							"value": "{{weight}}",
+							"type": "text"
+						},
+						{
+							"key": "auth_token",
+							"value": "{{token}}",
+							"type": "text"
+						}
+					]
+				},
+				"url": "{{url}}/test_pet_info"
+			},
+			"response": []
+		},
+		{
+			"name": "get_test_user",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"var jsonData = pm.response.json();",
+							"",
+							"pm.test (\"Status code 200\", function () {",
+							"    pm.response.to.have.status(200);",
+							"});",
+							"",
+							"pm.test (\"check JSON stracture\", function () {",
+							"    pm.expect(jsonData).to.eql({",
+							"      \"age\": \"20\",",
+							"    \"family\": {",
+							"        \"children\": [",
+							"            [",
+							"                \"Alex\",",
+							"                24",
+							"            ],",
+							"            [",
+							"                \"Kate\",",
+							"                12",
+							"            ]",
+							"        ],",
+							"        \"u_salary_1_5_year\": 1600000",
+							"    },",
+							"    \"name\": \"Nadya\",",
+							"    \"salary\": 400000",
+							"",
+							"    });",
+							"});",
+							"",
+							"var name = pm.environment.get(\"Name\");",
+							"pm.test (\"Name comparison\", function () {",
+							"    pm.expect(jsonData.name).to.eql(name);",
+							"});",
+							"",
+							"var ageGlobal = pm.environment.get(\"Age\");",
+							"var ageInt = parseInt(ageGlobal);",
+							"var ageServer = jsonData.age;",
+							"var ageServerInt = parseInt(ageServer);",
+							"pm.test (\"Age comparison\", function () {",
+							"pm.expect(ageServerInt).to.eql(ageInt);",
+							"});",
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "formdata",
+					"formdata": [
+						{
+							"key": "auth_token",
+							"value": "{{token}}",
+							"type": "text"
+						},
+						{
+							"key": "age",
+							"value": "{{Age}}",
+							"type": "text"
+						},
+						{
+							"key": "salary",
+							"value": "{{u_salary_1_5_year}}",
+							"type": "text"
+						},
+						{
+							"key": "name",
+							"value": "{{Name}}",
+							"type": "text"
+						}
+					]
+				},
+				"url": "{{url}}/get_test_user"
+			},
+			"response": []
+		},
+		{
+			"name": "currency",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"var jsonData = pm.response.json();",
+							"var index = Math.floor(Math.random()*357);",
+							"console.log(index)"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "formdata",
+					"formdata": [
+						{
+							"key": "auth_token",
+							"value": "{{token}}",
+							"type": "text"
+						}
+					]
+				},
+				"url": "{{url}}/currency"
+			},
+			"response": []
+		}
+	]
+}
